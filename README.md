@@ -3,7 +3,9 @@
 
 <h2>Install requirements</h2>
 - create env: 'python3.8 -m venv env'
+<br>
 - activat env: 'source env/bin/activate'
+<br>
 - install requirements: 'pip install -r requirements.txt'
 
 
