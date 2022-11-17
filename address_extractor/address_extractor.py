@@ -3,6 +3,7 @@ from itertools import chain
 
 
 class AddressExtraction(object):
+    
     def __init__(self):
         self.ez_address_identifier = "ادرس|آدرس|نشانی"
         self.non_starter_address_keywords = r"\b(منطقه|طبقه|کوچه|بن بست|پلاک|واحد)\b"
