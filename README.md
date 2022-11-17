@@ -8,4 +8,4 @@ comming soon
 <h2>Usage</h2>
 - enable env: 'source env/bin/activate'
 <br>
-run project: 'python3.8 test.py'
+- run project: 'python3.8 test.py'
