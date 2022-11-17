@@ -18,7 +18,6 @@ setup(
                 'src/*',
                 'assets/*',
         ],
-
     }
     
 )
