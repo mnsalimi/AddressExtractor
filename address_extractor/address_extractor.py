@@ -8,14 +8,13 @@ class AddressExtractor(object):
         self.ez_address_identifier = "ادرس|آدرس|نشانی"
         self.non_starter_address_keywords = r"\b(منطقه|طبقه|کوچه|بن بست|پلاک|واحد)\b"
         self.relational_address_keywords = r"\b(جنب|رو به رو|روبرو|بالاتر از|پایین‌ تر از|قبل از|بعد از)\b"
-        # self.special_place = r"\b(مجموعه ورزشی|دانشگاه صنعتی|مغازه|نمایشگاه|سینما|سینمای|پارک|موزه|ورزشگاه|باشگاه|رستوران|کافه|پاساژ|کترینگ|شرکت|دانشگاه|مدرسه|مسجد|راسته|تیمچه|بازار|درمانگاه|بیمارستان|حسینیه|دبستان|دبیرستان|دانشکده|آزمایشگاه|تعمیرگاه|مکانیکی|آتلیه|رادیولوژی|سونوگرافی|نانوایی|بولینگ|تولیدی|کارخانه|قهوه خانه|چای خانه|سفره خانه|فودکورت|مجتمع تجاری|داروخانه|مجلس شورای|ریاست|قوه|دادگاه|دادسرای|بیت |دفتر|حوزه ی علمیه|حرم|فدراسیون)\b"
         self.central_cities = r"\b(تبریز|ارومیه|اردبیل|اصفهان|کرج|ایلام|بوشهر|تهران|شهرکرد|بیرجند|مشهد|بجنورد|اهواز|زنجان|سمنان|زاهدان|شیراز|قزوین|قم|سنندج|کرمان|کرمانشاه|یاسوج|گرگان|خرم آباد|رشت|ساری|اراک|بندرعباس|بندر عباس|همدان|یزد)\b"
         self.separators = "،|-|,"
         self.start_address_keywords = r"\b(منطقه|خیابان|بلوار|میدان|بزرگراه|آزادراه|آزاد راه|اتوبان|جاده|محله|کوی|چهار راه|سه‌ راه|شهر|کشور|استان|شهرستان|دهستان|روستای|شهرک)\b"
         self.locations = f"{self.countries}|{self.central_cities}|{self.province}"
         self.middle_address_keywords = f"{self.start_address_keywords}|{self.non_starter_address_keywords}|{self.relational_address_keywords}"
         self.starter_keywords = f"{self.ez_address_identifier}|{self.start_address_keywords}|{self.locations}"
-        self.pattern = f"({self.starter_keywords})([^\\.]{{{{{{spaces_count}}}}}}({self.middle_address_keywords}|{self.separators})){{{{{{keyword_count}}}}}}( *({self.special_place})? *\w+)"
+        self.pattern = f"({self.starter_keywords})([^\\.]{{{{{{spaces_count}}}}}}({self.middle_address_keywords}|{self.separators})){{{{{{keyword_count}}}}}}( *({self.places})? *\w+)"
     
     def __load_dicts(self):
 
@@ -31,7 +30,7 @@ class AddressExtractor(object):
         with open("address_extractor/assets/cities_phone.pickle", "rb") as f:
             cities_phone = [str(num) for num in pickle.load(f)]
             self.cities_phone_prefix = "(" + '|'.join(cities_phone) + ")"
-            
+
         with open("address_extractor/assets/places.pickle", "rb") as f:
             places = [str(num) for num in pickle.load(f)]
             self.places = "\\b(" + '|'.join(places) + ")\\b"
