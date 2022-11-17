@@ -441,6 +441,6 @@ def create_cities_pickle():
 
 
 if __name__ == "__main__":
-    res = create_province_pickle()
-    with open("province.pickle", "wb") as f:
+    res = create_places_pickle()
+    with open("places.pickle", "wb") as f:
         pickle.dump(res, f, protocol=pickle.HIGHEST_PROTOCOL)
