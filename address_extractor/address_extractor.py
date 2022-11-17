@@ -77,7 +77,7 @@ class AddressExtractor(object):
             f"(({mobile_pattern})|({phone_pattern})|({phone_without_country_pattern})|({phone_three_digit})|({phone_three_digit_word})|({phone_four_digit}))",
             inp)
 
-    def run(self, text):
+    def extract_address(self, text):
         text = text.replace("\u200C", " ")
         text = self.normalizer_number(text)
         matches = {'address':[], 'email':[], 'url':[], 'number':[], 'address_span':[], 'email_span':[], 'url_span':[], 'number_span':[]}
