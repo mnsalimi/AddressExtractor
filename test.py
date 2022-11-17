@@ -1,7 +1,7 @@
 
-from address_extractor.address_extractor import AddressExtraction
+from address_extractor.address_extractor import AddressExtractor
 
 if __name__ == "__main__":
-    extractor = AddressExtraction()
+    extractor = AddressExtractor()
     address = extractor.run("انگلیس خیابان ملکی") 
     print(address)

@@ -13,3 +13,6 @@
 - enable env: 'source env/bin/activate'
 <br>
 - run project: 'python3.8 test.py'
+
+<h2>Install Package</h2>
+comming soon

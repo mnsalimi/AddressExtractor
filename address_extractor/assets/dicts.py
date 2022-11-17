@@ -3,6 +3,65 @@ import pickle
 import requests
 from bs4 import BeautifulSoup
 
+def create_places_pickle():
+    places = [
+        "دانشگاه صنعتی",
+        "مجموعه ورزشی",
+        "مغازه",
+        "نمایشگاه",
+        "سینما",
+        "سینمای",
+        "پارک",
+        "موزه",
+        "ورزشگاه",
+        "باشگاه",
+        "رستوران",
+        "کافه",
+        "پاساژ",
+        "کترینگ",
+        "شرکت",
+        "دانشگاه",
+        "مدرسه",
+        "مسجد",
+        "راسته",
+        "تیمچه",
+        "بازار",
+        "درمانگاه",
+        "بیمارستان",
+        "حسینیه",
+        "دبستان",
+        "دبیرستان",
+        "دانشکده",
+        "آزمایشگاه",
+        "تعمیرگاه",
+        "مکانیکی",
+        "آتلیه",
+        "رادیولوژی",
+        "سونو",
+        "گرافی",
+        "نانوایی",
+        "بولینگ",
+        "تولیدی",
+        "کارخانه",
+        "قهوه خانه",
+        "چای خانه",
+        "سفره خانه",
+        "فودکورت",
+        "مجتمع تجاری",
+        "داروخانه",
+        "مجلس شورای",
+        "ریاست",
+        "قوه",
+        "دادگاه",
+        "دادسرای",
+        "بیت ",
+        "دفتر",
+        "حوزه ی علمیه",
+        "حرم",
+        "فدراسیون",
+    ]
+    return places
+
 def create_cities_phone_pickle(): 
     cities_phone = [
         41,
@@ -293,7 +352,7 @@ def create_countries_pickle():
     ]
     return countries
 
-def province():
+def create_province_pickle():
     provinces_list = [
         "اذربایجان",
         "آذربایجان",
@@ -326,6 +385,7 @@ def province():
         "کرمان",
         "کرمانشاه",
         "کهگیلویه و بویر احمد",
+        "کهگیلویه و بویراحمد",
         "کهگیلویه",
         "گلستان",
         "لرستان",
@@ -337,7 +397,7 @@ def province():
         "یزد",
     ] 
     return provinces_list
-    
+
 def create_cities_pickle():
     cities = [
     "تبریز",
@@ -381,6 +441,6 @@ def create_cities_pickle():
 
 
 if __name__ == "__main__":
-    res = create_cities_pickle()
-    with open("cities_name.pickle", "wb") as f:
+    res = create_province_pickle()
+    with open("province.pickle", "wb") as f:
         pickle.dump(res, f, protocol=pickle.HIGHEST_PROTOCOL)
