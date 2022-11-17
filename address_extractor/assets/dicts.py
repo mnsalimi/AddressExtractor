@@ -336,7 +336,8 @@ def province():
         "همدان",
         "یزد",
     ] 
-
+    return provinces_list
+    
 def create_cities_pickle():
     cities = [
     "تبریز",
