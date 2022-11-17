@@ -16,3 +16,8 @@
 
 <h2>Install Package</h2>
 comming soon
+
+<h2>Authors</h2>
+- Sahar Zal
+- Moein Salimi
+- Hossein Parto
