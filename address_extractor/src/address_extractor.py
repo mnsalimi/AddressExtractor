@@ -6,11 +6,11 @@ class AddressExtractor(object):
     def __init__(self):
         self.__load_dicts()
         self.ez_address_identifier = "ادرس|آدرس|نشانی"
-        self.non_starter_address_keywords = r"\b(منطقه|طبقه|کوچه|بن بست|پلاک|واحد)\b"
-        self.relational_address_keywords = r"\b(جنب|رو به رو|روبرو|بالاتر از|پایین‌ تر از|قبل از|بعد از)\b"
-        self.central_cities = r"\b(تبریز|ارومیه|اردبیل|اصفهان|کرج|ایلام|بوشهر|تهران|شهرکرد|بیرجند|مشهد|بجنورد|اهواز|زنجان|سمنان|زاهدان|شیراز|قزوین|قم|سنندج|کرمان|کرمانشاه|یاسوج|گرگان|خرم آباد|رشت|ساری|اراک|بندرعباس|بندر عباس|همدان|یزد)\b"
+        self.non_starter_address_keywords = r"\b(منطقه|طبقه|کوچه|بن‌بست|بن بست|پلاک|واحد|بلوک|برج)\b"
+        self.relational_address_keywords = r"\b(جنب|رو به رو|روبرو|بالاتر از|پایین‌ تر از|قبل از|بعد از|نبش)\b"
+        self.central_cities = r"\b(تبریز|ارومیه|اردبیل|اصفهان|کرج|ایلام|بوشهر|تهران|شهرکرد|بیرجند|مشهد|بجنورد|اهواز|زنجان|سمنان|زاهدان|شیراز|قزوین|قم|سنندج|کرمان|کرمانشاه|یاسوج|گرگان|خرم‌آباد|خرم آباد|رشت|ساری|اراک|بندرعباس|بندر عباس|همدان|یزد)\b"
         self.separators = "،|-|,"
-        self.start_address_keywords = r"\b(منطقه|خیابان|بلوار|میدان|بزرگراه|آزادراه|آزاد راه|اتوبان|جاده|محله|کوی|چهار راه|سه‌ راه|شهر|کشور|استان|شهرستان|دهستان|روستای|شهرک)\b"
+        self.start_address_keywords = r"\b(تقاطع|منطقه|خیابون|خیابان|بلوار|میدون|میدان|بزرگ‌راه|بزرگراه|آزادراه|آزاد راه|اتوبان|جاده|محله|کوی|چهارراه|چهار راه|سه‌راه|سه‌ راه|شهر|کشور|استان|شهرستان|دهستان|روستای|شهرک|حومه|پل)\b"
         self.locations = f"{self.countries}|{self.central_cities}|{self.province}"
         self.middle_address_keywords = f"{self.start_address_keywords}|{self.non_starter_address_keywords}|{self.relational_address_keywords}"
         self.starter_keywords = f"{self.ez_address_identifier}|{self.start_address_keywords}|{self.locations}"
