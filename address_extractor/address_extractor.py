@@ -102,7 +102,3 @@ class AddressExtractor(object):
             matches['number_span'].append(i.end())
 
         return matches
-
-# if __name__ == "__main__":
-#     extractor = AddressExtraction()
-#     address = extractor.run("خیابان ملکی ایرلاین") 
