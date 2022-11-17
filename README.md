@@ -19,5 +19,7 @@ comming soon
 
 <h2>Authors</h2>
 - Sahar Zal
+<br>
 - Moein Salimi
+<br>
 - Hossein Parto
