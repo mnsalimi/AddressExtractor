@@ -2,7 +2,9 @@
 
 
 <h2>Install requirements</h2>
-comming soon
+- create env: 'python3.8 -m venv env'
+- activat env: 'source env/bin/activate'
+- install requirements: 'pip install -r requirements.txt'
 
 
 <h2>Usage</h2>
