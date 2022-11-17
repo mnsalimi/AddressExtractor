@@ -31,10 +31,10 @@ class AddressExtraction(object):
 
         with open("address_extractor/assets/countries.pickle", "rb") as f:
             countries = [str(num) for num in pickle.load(f)]
-            self.countries = "\\b" + '|'.join(countries) + "\\b"
+            self.countries = "\\b(" + '|'.join(countries) + ")\\b"
             
     def normalizer_number(self, s: str):
-        persian_numbers = "۰۱۲۳۴۵۶۷۸۹"
+        persian_numbers = "۰۱۲۳۴۵۶۷۸۹" 
         english_numbers = "0123456789"
         arabic_numbers = "٠١٢٣٤٥٦٧٨٩"
 
