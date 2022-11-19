@@ -8,7 +8,9 @@
 <br>
 - install requirements: 'pip install -r requirements.txt'
 
-
+```
+cd khk
+```
 <h2>Usage</h2>
 - enable env: 'source env/bin/activate'
 <br>
