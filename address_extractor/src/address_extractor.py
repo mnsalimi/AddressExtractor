@@ -17,8 +17,6 @@ class AddressExtractor(object):
         self.pattern = f"({self.starter_keywords})([^\\.]{{{{{{spaces_count}}}}}}({self.middle_address_keywords}|{self.separators})){{{{{{keyword_count}}}}}}( *({self.places})? *\w+)"
     
     def __load_dicts(self):
-
-
         with open("address_extractor/assets/countries.pickle", "rb") as f:
             countries = [str(num) for num in pickle.load(f)]
             self.countries = "\\b(" + '|'.join(countries) + ")\\b"
