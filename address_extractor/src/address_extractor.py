@@ -1,39 +1,51 @@
 import re
 import pickle
+import address_extractor.src.config as config
 
-class AddressExtractor(object):
+class PersianAddressExtractor(object):
 
     def __init__(self):
         self.__load_dicts()
         self.ez_address_identifier = "ادرس|آدرس|نشانی"
-        self.non_starter_address_keywords = r"\b(منطقه|طبقه|کوچه|بن‌بست|بن بست|پلاک|واحد|بلوک|برج)\b"
-        self.relational_address_keywords = r"\b(جنب|رو به رو|روبرو|بالاتر از|پایین‌ تر از|قبل از|بعد از|نبش)\b"
-        self.central_cities = r"\b(تبریز|ارومیه|اردبیل|اصفهان|کرج|ایلام|بوشهر|تهران|شهرکرد|بیرجند|مشهد|بجنورد|اهواز|زنجان|سمنان|زاهدان|شیراز|قزوین|قم|سنندج|کرمان|کرمانشاه|یاسوج|گرگان|خرم‌آباد|خرم آباد|رشت|ساری|اراک|بندرعباس|بندر عباس|همدان|یزد)\b"
+        self.non_starter_address_keywords =\
+             r"\b(منطقه|طبقه|کوچه|بن‌بست|بنبست|بن بست|پلاک|واحد|بلوک|برج)\b"
+        self.relational_address_keywords =\
+             r"\b(جنب|رو به رو|رو به روی|روبه‌رو|روبه‌روی|روبروی|روبرو|بالاتر از|پایین‌تر از|پایین‌ تر از|قبل از|بعد از|نبش)\b"
         self.separators = "،|-|,"
-        self.start_address_keywords = r"\b(تقاطع|منطقه|خیابون|خیابان|بلوار|میدون|میدان|بزرگ‌راه|بزرگراه|آزادراه|آزاد راه|اتوبان|جاده|محله|کوی|چهارراه|چهار راه|سه‌راه|سه‌ راه|شهر|کشور|استان|شهرستان|دهستان|روستای|شهرک|حومه|پل)\b"
-        self.locations = f"{self.countries}|{self.central_cities}|{self.province}"
+        self.start_address_keywords =\
+            r"\b(تقاطع|منطقه‌ی|منطقه ی|منطقه|خیابون|خیابان|بلوار|میدون|میدان|بزرگ‌راه|بزرگراه|آزادراه|آزاد راه|اتوبان|محله‌ی|محله ی|جاده|محله|کوی|چهارراه|چهار راه|سه‌راه|سراه|سه‌ راه|شهر|کشور|استان|شهرستان|دهستان|روستای|شهرک|حومه‌ی|حومه ی|حومه|پل)\b"
+        self.locations = f"{self.countries}|{self.cities}|{self.province}"
         self.middle_address_keywords = f"{self.start_address_keywords}|{self.non_starter_address_keywords}|{self.relational_address_keywords}"
         self.starter_keywords = f"{self.ez_address_identifier}|{self.start_address_keywords}|{self.locations}"
         self.pattern = f"({self.starter_keywords})([^\\.]{{{{{{spaces_count}}}}}}({self.middle_address_keywords}|{self.separators})){{{{{{keyword_count}}}}}}( *({self.places})? *\w+)"
     
     def __load_dicts(self):
-        with open("address_extractor/assets/countries.pickle", "rb") as f:
+
+        with open("{0}/countries.pickle".format(config.ASSETS_ROOT), "rb") as f:
             countries = [str(num) for num in pickle.load(f)]
             self.countries = "\\b(" + '|'.join(countries) + ")\\b"
 
-        with open("address_extractor/assets/provinces.pickle", "rb") as f:
+        with open("{0}/provinces.pickle".format(config.ASSETS_ROOT), "rb") as f:
             province = [str(num) for num in pickle.load(f)]
             self.province = "\\b(" + '|'.join(province) + ")\\b"
 
-        with open("address_extractor/assets/cities_phone.pickle", "rb") as f:
+        with open("{0}/cities_phone.pickle".format(config.ASSETS_ROOT), "rb") as f:
             cities_phone = [str(num) for num in pickle.load(f)]
             self.cities_phone_prefix = "(" + '|'.join(cities_phone) + ")"
 
-        with open("address_extractor/assets/places.pickle", "rb") as f:
+        with open("{0}/cities_name.pickle".format(config.ASSETS_ROOT), "rb") as f:
+            self.cities = [str(num) for num in pickle.load(f)]
+            self.cities = "\\b(" + '|'.join(self.cities) + ")\\b"
+
+        with open("{0}/places.pickle".format(config.ASSETS_ROOT), "rb") as f:
             places = [str(num) for num in pickle.load(f)]
             self.places = "\\b(" + '|'.join(places) + ")\\b"
             
-    def normalizer_number(self, s: str):
+    def standardize_query(self, text: str):
+        for word in word in text.split(" "):
+            pass
+
+    def normalize_number(self, text: str):
         persian_numbers = "۰۱۲۳۴۵۶۷۸۹" 
         english_numbers = "0123456789"
         arabic_numbers = "٠١٢٣٤٥٦٧٨٩"
@@ -41,7 +53,7 @@ class AddressExtractor(object):
         translation_from_persian = str.maketrans(persian_numbers, english_numbers)
         translation_from_arabic = str.maketrans(arabic_numbers, english_numbers)
 
-        return s.translate(translation_from_persian).translate(translation_from_arabic)
+        return text.translate(translation_from_persian).translate(translation_from_arabic)
 
     def match_address(self, inp):
         matches = []
@@ -77,7 +89,7 @@ class AddressExtractor(object):
 
     def extract_address(self, text):
         text = text.replace("\u200C", " ")
-        text = self.normalizer_number(text)
+        text = self.normalize_number(text)
         matches = {'address':[], 'email':[], 'url':[], 'number':[], 'address_span':[], 'email_span':[], 'url_span':[], 'number_span':[]}
         for i in (self.match_address(text)):
             matches['address'].append(i.group())

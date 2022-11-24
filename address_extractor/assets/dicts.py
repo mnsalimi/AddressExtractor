@@ -875,8 +875,22 @@ def create_cities_pickle():
     ]
     return cities
 
-
+def countriesCSV_to_dict():
+    with open("countries.csv", "r", encoding="utf-8") as f:
+        lines = [line.replace("\n", "").strip().split(",") for line in f.readlines()]
+    countries = {}
+    for line in lines:
+        if line[1] == "0":
+            countries[line[0]] = "0"
+        elif line[1] == "1":
+            countries[line[0]] = "1"
+    return countries
 if __name__ == "__main__":
-    res = create_places_pickle()
-    with open("places.pickle", "wb") as f:
+    res = create_countries_pickle()
+    # res = countriesCSV_to_dict()
+    # print(res)
+    with open("countries.pickle", "wb") as f:
         pickle.dump(res, f, protocol=pickle.HIGHEST_PROTOCOL)
+    # with open("countries.pickle", "rb") as f:
+    #     res = pickle.load(f)
+    # [print(r) for r in res]
